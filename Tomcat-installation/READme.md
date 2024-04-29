@@ -7,7 +7,7 @@
 ## Apache Tomcat Installation And Setup In AWS EC2 Redhat Instnace.
 ##### Prerequisite
 + AWS Acccount.
-+ Create Redhat EC2 T2.micro Instnace.
++ Create Redhat EC2 T2.micro Instance DIFFERENT from the server used for build (MAVEN).
 + Create Security Group and open Tomcat ports or Required ports.
    + 8080 ..etc
 + Attach Security Group to EC2 Instance.
@@ -32,4 +32,25 @@ sudo ln -s /opt/tomcat9/bin/startup.sh /usr/bin/starttomcat
 sudo ln -s /opt/tomcat9/bin/shutdown.sh /usr/bin/stoptomcat
 sudo starttomcat
 ```
+Access tomcat with your serverIP:port number on your browser  e.g 23.43.153.65:8080
+#To solve the error 403 on Manager and Host
+vi /opt/tomcat9/webapps/manager/META-INF/context.xml
+
+<!--
+<Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+-->
+
+vi /opt/tomcat9/webapps/host-manager/META-INF/context.xml
+
+<!--
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+-->
+
+#To create username and password
+vi /opt/tomcat9/conf/tomcat-users.xml
+
+#Paste the command below the closing tomcat tag or edit and uncomment
+<user username="dav" password="admin123" roles="manager-gui,admin-gui, manager-script"/>
 
