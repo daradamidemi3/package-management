@@ -2,7 +2,7 @@
 ### **<span style="color:green">Contacts: +1437 215 2483<br> WebSite : <http://mylandmarktech.com/></span>**
 ### **Email: mylandmarktech@gmail.com**
 
-#Importance of Nexus
+# Importance of Nexus
 ```ssh
 1. Helps to provide redundancy for build server as backup
 2. It prevents man-in-the-middle via proxy repo
