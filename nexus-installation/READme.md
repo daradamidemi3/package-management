@@ -33,9 +33,9 @@ sudo yum install java-11-openjdk-devel java-1.8.0-openjdk-devel -y
 ```
 ### Download nexus software and extract it (unzip).
 ```sh
-sudo wget http://download.sonatype.com/nexus/3/nexus-3.47.1-01-unix.tar.gz 
-sudo tar -zxvf nexus-3.47.1-01-unix.tar.gz
-sudo mv /opt/nexus-3.47.1-01 /opt/nexus
+sudo wget https://download.sonatype.com/nexus/3/nexus-3.68.1-02-java11-unix.tar.gz
+sudo tar -zxvf nexus-3.68.1-02-java8-unix.tar.gz
+sudo mv /opt/nexus-3.68.1-02 /opt/nexus
 ```
 
 ## Grant permissions for nexus user to start and manage nexus service
@@ -123,7 +123,63 @@ change <version>0.0.1-SNAPSHOT</version>  to    <version>0.0.1</version>
 Then build again ---- mvn deploy
 
 NOTE: Snapshot by default allows for redeploy while Release does not
-      To redeploy in Release, you have to allow it in the settings on NEXUS.
+      If you have to allow redeploy on NEXUS, it only overwrite but not version.
+      To redeploy in Release, change the <version> number eg <version>1.0.1</version> in pom.xml
+
+```
+# DELETING MAVEN REPOSITORY
+```sh
+sudo rm -rf ~/.m2/repository   ----- It deletes maven repo
+cd ~/.m2/repository    ----- To check the maven repo
+
+mvn deploy ------ It will download dependencies and plugins, build and save to nexus after this deletion
+
+Note: While downloading dependencies from maven central, there could man-in-the-middle attack.
+      This leads to setting up nexus proxy repo
+``` 
+
+# DEMILITARIZED ZONE TO MILITARIZED ZONE -- SETTING UP PROXY REPO ON NEXUS TO PREVENT MAN-IN-THE-MIDDLE ATTACKS
+```sh
+Maven central is a demilitarized zone
+Nexus Proxy Repo is a Militarized zone
+
+How to Set up Nexus Proxy Repo
+Go to setting on Nexus
+Click on Repositories
+Scroll down to (maven2 proxy)
+Create your project repo
+Version Policy = mixed (Not Snapshot or Release)
+Declare maven central url on Remote Storage (https://repo.maven.apache.org/maven2/)  where dependencies and plugins are accessed from
+In this case Nexus is the one accessing the maven central and not the maven build server.
+Copy the url  of the nexus proxy repo created
+On maven build server:  sudo vi /opt/maven/conf/settings.xml
+Go to <mirror> tag before the closing tag
+ <mirror>
+      <id>nexus</id>  --------------- change id to nexus 
+      <mirrorOf> * </mirrorOf> ------------ the asterik means mirror everyting
+      <name>Nexus Proxy Repo</name> ------------ Create a name
+      <url> your nexus proxy repo link </url> ------ Put your nexus proxy repo url here and the blocked tag
+    </mirror>
+
+Go to pom.xml
+vi pom.xml
+Before <dependencies> tag
+create <repositories> tag
+<repositories>
+  <repository>
+     <id>nexus</id>  ----------- As provided in <mirror> in settings.xml
+     <name>Nexus Proxy Repo</name>  ----------- As provided in <mirror> in settings.xml
+     <url> your nexus proxy repo link </url>  ----------- As provided in <mirror> in settings.xml
+  </repository>
+</repositories>
+
+Now: mvn deploy
+```
+
+
+
+
+
 
 
 
