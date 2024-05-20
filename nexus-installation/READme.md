@@ -63,3 +63,71 @@ sudo systemctl start nexus
 sudo systemctl status nexus
 echo "end of nexus installation"
 ```
+# GO TO YOUR BROWSER
+```sh
+Type the nexus server IP:port no  eg 51.76.13.156:8081
+Disable Anonymous
+Copy the link to your ssh client to get the password
+create new password
+```
+# TO CREATE REPO ON NEXUS (On the Browser)
+```sh
+Click on Setting icon
+Click on Repositories
+Create New Repository
+Select (maven2 hosted)
+Create for Snapshot and Release respectively
+Copy the links for both Snapshot and Release Repositories to notepad
+```
+# TO BUILD AND SAVE TO NEXUS REPOS 
+```sh
+Go to maven server
+mvn clean   ------ to remove the initial build (target)
+Go to your maven server
+cd into the maven project directory
+vi into pom.xml
+Go to <distribution management> tag
+Remove the old urls for both Release and Snapshot
+Replace the URLS with the new ones created and copied
+```
+
+# Still on Maven Server
+```sh
+sudo vi /opt/maven/conf/settings.xml     --------- To change the settings that will create authentication for nexus
+Locate <servers> tag
+Ensure that your own tag is between the last closing comment ---> and the last  </servers>
+
+ <server>
+      <id>deploymentRepo</id>
+      <username>repouser</username>
+      <password>repopwd</password>
+ </server>
+Edit <id> to nexus
+Edit <username> to admin ---------- the username for your nexus
+Edit <password> to admin123 -------- the password you created when login to nexus for the first time
+```
+# Go Back to Maven project Repo
+```
+ls
+cd to maven project repo
+mvn deploy
+
+----Snapshot build is for DEMO
+----Release build is for PRODUCTION oR DEPLOYMENT
+
+NOTE: mvn deploy will build and save to nexus on SNAPSHOT by default
+
+To build for RELEASE
+vi pom.xml
+change <version>0.0.1-SNAPSHOT</version>  to    <version>0.0.1</version>
+Then build again ---- mvn deploy
+
+NOTE: Snapshot by default allows for redeploy while Release does not
+      To redeploy in Release, you have to allow it in the settings on NEXUS.
+
+
+
+
+
+
+
