@@ -34,7 +34,8 @@ sudo yum install java-11-openjdk-devel java-1.8.0-openjdk-devel -y
 ### Download nexus software and extract it (unzip).
 ```sh
 To get updated nexus version ------https://help.sonatype.com/en/download.html----
-sudo wget https://download.sonatype.com/nexus/3/nexus-3.68.1-02-java11-unix.tar.gz
+sudo wget https://download.sonatype.com/nexus/3/nexus-3.68.1-02-java8-unix.tar.gz
+ls (sudo tar -zxvf plus the .gz directory)
 sudo tar -zxvf nexus-3.68.1-02-java8-unix.tar.gz
 sudo mv /opt/nexus-3.68.1-02 /opt/nexus
 ```
