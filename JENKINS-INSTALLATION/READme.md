@@ -14,29 +14,32 @@
 + Install java openJDK 1.8+ for SonarQube version 7.8
 
 ### Install Java JDK 1.8+ as Jenkins pre-requisit
-### Install other softwares - git, unzip and wget
+sudo apt update
+sudo apt install fontconfig openjdk-17-jre
+java -version
+### To get the updated version of Jenkins
 
-``` sh
-sudo hostname ci
-sudo yum -y install unzip wget tree git
-sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
-sudo yum install jdk-8u131-linux-x64.rpm -y
-```
-###  Add Jenkins Repository and key
 ```sh
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-cd /etc/yum.repos.d/
-sudo curl -O https://pkg.jenkins.io/redhat-stable/jenkins.repo
-```
+https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
 
-## Install Jenkins
+```
+### Use the Long Term Release Version of Jenkins
 ```sh
-sudo yum -y install jenkins  --nobest
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install jenkins
+
 ```
 # start Jenkins  service and verify Jenkins is running
 ```sh
-sudo systemctl start jenkins
 sudo systemctl enable jenkins
+sudo systemctl start jenkins
 sudo systemctl status jenkins
 ```
 # Access Jenkins from the browser
