@@ -14,9 +14,11 @@
 + Install java openJDK 1.8+ for SonarQube version 7.8
 
 ### Install Java JDK 1.8+ as Jenkins pre-requisit
+```sh
 sudo apt update
 sudo apt install fontconfig openjdk-17-jre
 java -version
+```
 ### To get the updated version of Jenkins
 
 ```sh
