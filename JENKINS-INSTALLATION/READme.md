@@ -4,7 +4,7 @@
 
 
 
-## Jenkins Installation And Setup In AWS EC2 Redhat Instnace.
+## Jenkins Installation And Setup In AWS Ubuntu Instnace.
 ##### Prerequisite
 + AWS Acccount.
 + Create Redhat EC2 t2.medium Instance with 4GB RAM.
