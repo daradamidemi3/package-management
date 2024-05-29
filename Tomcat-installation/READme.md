@@ -52,5 +52,5 @@ vi /opt/tomcat9/webapps/host-manager/META-INF/context.xml
 vi /opt/tomcat9/conf/tomcat-users.xml
 
 #Paste the command below the closing tomcat tag or edit and uncomment
-<user username="dav" password="admin123" roles="manager-gui,admin-gui, manager-script"/>
+<user username="admin" password="admin123" roles="manager-gui,admin-gui, manager-script"/>
 
