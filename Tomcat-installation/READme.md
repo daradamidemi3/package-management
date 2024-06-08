@@ -34,15 +34,17 @@ sudo starttomcat
 ```
 Access tomcat with your serverIP:port number on your browser  e.g 23.43.153.65:8080
 #To solve the error 403 on Manager and Host
+```
 vi /opt/tomcat9/webapps/manager/META-INF/context.xml
 
 <!--
 <Valve className="org.apache.catalina.valves.RemoteAddrValve"
          allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
 -->
-
+```
+```
 vi /opt/tomcat9/webapps/host-manager/META-INF/context.xml
-
+```
 <!--
   <Valve className="org.apache.catalina.valves.RemoteAddrValve"
          allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
