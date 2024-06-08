@@ -7,7 +7,7 @@
 ## Jenkins Installation And Setup In AWS Ubuntu Instnace.
 ##### Prerequisite
 + AWS Acccount.
-+ Create Redhat EC2 t2.medium Instance with 4GB RAM.
++ Create Ubuntu t2.medium Instance with 4GB RAM.
 + Create Security Group and open Required ports.
    + 8080 got Jenkins, ..etc
 + Attach Security Group to EC2 Instance.
