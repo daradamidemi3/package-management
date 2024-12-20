@@ -100,13 +100,17 @@ Remove the old urls for both Release and Snapshot
 Replace the URLS with the new ones created and copied
 ```
 
-# Still on Maven Server
+# Still on Maven Server O
 ```sh
 sudo vi /opt/maven/conf/settings.xml     --------- To change the settings that will create authentication for nexus
 Locate <servers> tag
 Ensure that your own tag is between the last closing comment ---> and the last  </servers>
+````
+# Or On Jenkins Server 
+```
+sudo vi /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.9.9/conf/settings.xml
 
- <server>
+<server>
       <id>deploymentRepo</id>
       <username>repouser</username>
       <password>repopwd</password>
