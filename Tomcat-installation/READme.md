@@ -56,3 +56,36 @@ vi /opt/tomcat9/conf/tomcat-users.xml
 #Paste the command below the closing tomcat tag or edit and uncomment
 <user username="admin" password="admin123" roles="manager-gui,admin-gui, manager-script"/>
 
+#HOW TO DEPLOY ON TOMCAT SERVER FROM MAVEN
+
+1. spin up different servers for both maven and tomcat 
+   Note: Ensure you have a build on maven & if not (mvn package) to build
+
+2. On maven server (inside the maven repo), create a file with the exact name of the security key used to create the tomcat server (eg tomcat.pem),
+  open the tomcat security key in notepad, copy the content and paste in the file created in maven repo to LINK the two servers together.
+
+3. On maven server, use this command
+  scp -i <name of the created file in 2> target/maven-web-app.war ec2-user@57.13.45.37:/opt/tomcat9/webapps
+
+NOTE: syntax
+scp -i <name of the created file in 2> target/maven-<war file> ec2-user@<tomcat server IP>:/opt/tomcat9/webapps
+
+4. Change privilege of the tomcat.pem in 2 to 400:
+   chmod 400
+
+5. Use the command on 3 again after changing the privilege
+
+6. Launch your browser, TYPE tomcat server IP:/maven-web-app
+
+7. To hot fix bug--- this is correcting of errors by DevOps in the deployment without waiting for the dev team.
+  a. Go to maven server
+  b. src -> main -> webapp -> jsps
+  c. vi home.jsp        to edit or fix the bug
+
+8. Use the command below to remove old build, and rebuild new artefacts
+   mvn clean package
+
+9. To re-deploy, use the command on 3 again
+
+
+
